@@ -1,10 +1,8 @@
 package charging.app;
 
-import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBeanBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -16,11 +14,14 @@ public class ChargingApp {
     private Date endTime;
 
     public static void main(String[] args) {
-        if (args.length == 0) {
+        if (args.length < 3 ) {
             log.info("Please provide path for csv file with trucks info");
         } else {
-            String fileName = args[0];
+            String chargingTime = args[0];
+            String fileName = args[1];
             try {
+                int timeToCharge = Integer.parseInt(chargingTime);
+
                 // read and convert provided truck csv file to truck objects.
                 List<Truck> truckList = new CsvToBeanBuilder(new FileReader(fileName))
                         .withType(Truck.class)
@@ -59,8 +60,8 @@ public class ChargingApp {
                 ids.clear();
 
                 List<Charger> chargerList = null;
-                if (args.length > 1) {
-                    fileName = args[1];
+                if (args.length > 2) {
+                    fileName = args[2];
                     log.info("Reading charger file: {}", fileName);
                     chargerList = new CsvToBeanBuilder(new FileReader(fileName))
                             .withType(Charger.class)
@@ -98,10 +99,18 @@ public class ChargingApp {
                     System.exit(1);
                 }
 
-            } catch (FileNotFoundException fnfException) {
-                log.error("Could not find file: {} error: {}", fileName, fnfException.getMessage());
+                ChargingScheduler chargingScheduler = new ChargingScheduler();
+                Map<String, List<String>> chargerToTrucks =
+                        chargingScheduler.schedule(chargerList, truckList, timeToCharge);
+
+                log.info("Output for charging trucks ");
+                chargerToTrucks.entrySet().stream()
+                        .forEach(entry -> log.info("{}: {}", entry.getKey(), entry.getValue()));
+
             } catch (IOException ioException) {
-                log.error("Problem with file: {} error: {}", fileName, ioException.getMessage());
+                log.error("Could not find file: {} error: {}", fileName, ioException.getMessage());
+            } catch (CannotScheduleException cse) {
+                log.error("Error scheduling data.", cse);
             }
         }
     }
@@ -125,4 +134,5 @@ public class ChargingApp {
 
         return endTime;
     }
+
 }
