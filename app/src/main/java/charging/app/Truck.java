@@ -15,7 +15,7 @@ public class Truck {
     @CsvBindByPosition(required = true, position = 1)
     private int batteryCapacity;
 
-    // in kw
+    // in kwh
     @CsvBindByPosition(required = false, position = 2)
     private int currentCharge;
 }

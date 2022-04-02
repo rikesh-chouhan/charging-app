@@ -31,15 +31,15 @@ dependencies {
     // csv parser
     implementation 'com.opencsv:opencsv:5.6'
 
-    // logging
-    implementation 'org.slf4j:slf4j-api:1.7.36'
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
+    implementation 'org.slf4j:slf4j-reload4j:1.7.36'
+    testImplementation 'org.slf4j:slf4j-reload4j:1.7.36'
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
 }
 
 testing {
@@ -54,5 +54,5 @@ testing {
 
 application {
     // Define the main class for the application.
-    mainClass = 'charging.app.App'
+    mainClass = 'charging.app.Application'
 }
