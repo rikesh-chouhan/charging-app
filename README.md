@@ -6,6 +6,7 @@ You can clone this repo.
 #### building
 ```shell
 ./gradlew clean build
+```
 
 #### running
 Run charging.app.Application main class. It produces a list of chargers to candidate vehichles it can chargge.
