@@ -12,7 +12,8 @@ public class PercentageChargingScheduler extends ChargingScheduler {
 
     // find candidate trucks which when charged would total up
     // close to a chargers capacity
-    List<String> candidateTrucksForChargerForPercentage(List<Map.Entry<String, Integer>> toBeChargedList, int maxCharge) {
+    @Override
+    List<String> candidateTrucksForCharger(List<Map.Entry<String, Integer>> toBeChargedList, int maxCharge) {
 
         // Container to store candidate trucks
         Map.Entry<Integer, List<String>> optimum = Map.entry(0, new ArrayList<>());

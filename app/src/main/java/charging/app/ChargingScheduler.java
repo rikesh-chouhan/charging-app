@@ -42,6 +42,10 @@ public class ChargingScheduler implements Scheduler {
             candidates.addAll(newEntries);
         }
 
+        log.info("maxcharge: {}", maxCharge);
+        candidates.stream()
+                .forEach(entry ->
+                        log.info("entry: {}: {}", entry.getKey(), entry.getValue()));
         // placeholder
         return optimum.getValue();
     }
@@ -64,6 +68,7 @@ public class ChargingScheduler implements Scheduler {
         List<Map.Entry<String, Integer>> chargerToKwhCapacity = sortedChargers.stream()
                 .map(charger -> Map.entry(charger.getChargerId(), getTotalKiloWattHours(charger, totalTime)))
                 .collect(Collectors.toList());
+        log.info("Total kwh capacity by charger: {}", chargerToKwhCapacity);
 
         // Take chargers and find trucks that can be charged for the given amount of charge.
         // initialize list to be used to determine candidate trucks for a charger.

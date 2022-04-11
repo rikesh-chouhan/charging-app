@@ -14,15 +14,20 @@ public class Application {
     public static void main(String[] args) {
         List<Truck> truckList = Arrays.asList(
                 new Truck("111", 500, 390),
-                new Truck("115", 200, 30),
-                new Truck("112", 400, 200),
-                new Truck("113", 200, 180),
-                new Truck("114", 100, 65)
+                new Truck("115", 500, 30),
+                new Truck("112", 500, 200),
+                new Truck("113", 500, 180),
+                new Truck("114", 500, 65),
+                new Truck("116", 500, 300),
+                new Truck("117", 500, 230),
+                new Truck("118", 500, 400),
+                new Truck("119", 500, 180),
+                new Truck("110", 500, 65)
         );
 
         List<Charger> chargerList = Arrays.asList(
-                Charger.builder().chargerId("111").chargingRate(200).build(),
-                Charger.builder().chargerId("112").chargingRate(250).build()
+                Charger.builder().chargerId("111").chargingRate(300).build(),
+                Charger.builder().chargerId("112").chargingRate(450).build()
         );
 
         int totalChargingTime = 2;
